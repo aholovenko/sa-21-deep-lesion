@@ -1,1 +1,16 @@
-#TODO
+name: build-and-push
+on:
+  push:
+    tags:
+      - '*.*.*'
+jobs:
+  build-and-push-image:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Here we build an image
+        run: 
+          echo "docker build ."
+      - name: Here we push an image
+        run: 
+          echo "push image to registry"
