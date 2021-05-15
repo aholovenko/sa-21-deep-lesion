@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Extract tag name
+        id: tag_name
         run: |
-          echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-          echo $VERSION
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+        env: |
+          VERSION: ${{ steps.tag_name.outputs.VERSION }}
       - name: Here we build an image
         run: 
           echo "docker build . -t deep-lesion:$VERSION"
