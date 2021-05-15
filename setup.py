@@ -28,10 +28,15 @@ async def main():
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
-    contents = await file.read()
-    logging.info('Loading image...')
-    image = Image.open(io.BytesIO(contents))
-    logging.info(f'Successfully uploaded {file.filename}')
+    try:
+        contents = await file.read()
+        logging.info('Loading image...')
+        image = Image.open(io.BytesIO(contents))  # TODO create class for image types - jpg, png, etc? 
+        logging.info(f'Successfully uploaded image {file.filename}')
+    except Exception as e:
+        msg = f'Error while uploading image'
+        logging.error(f'{msg}: {e}')
+        return msg
     return image
 
 
