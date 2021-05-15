@@ -14,10 +14,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             return context.payload.ref.replace(/\/refs\/tags\//, '');
-          - name: Echo
-            run: |
-              export VERSION=${{ steps.tag.outputs.result }}
-              echo $VERSION
+      - name: Echo
+        run: |
+          export VERSION=${{ steps.tag.outputs.result }}
+          echo $VERSION
       - name: Here we build an image
         run: 
           echo "docker build . -t deep-lesion:$VERSION"
