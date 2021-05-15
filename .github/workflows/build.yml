@@ -1,0 +1,26 @@
+name: build-and-push
+on:
+  push:
+    tags:
+      - '*.*.*'
+jobs:
+  build-and-push-image:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract tag name
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+      - name: Echo
+        run: |
+          export VERSION=${{ steps.tag.outputs.result }}
+          echo $VERSION
+      - name: Here we build an image
+        run: 
+          echo "docker build . -t deep-lesion:$VERSION"
+      - name: Here we push an image
+        run: 
+          echo "push image to registry"
