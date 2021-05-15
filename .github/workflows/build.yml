@@ -6,7 +6,7 @@ on:
 jobs:
   build-and-push-image:
     name: Build and push image
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Extract tag name
         id: vars
