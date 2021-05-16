@@ -15,13 +15,13 @@ jobs:
         id: vars
         run: 
           echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-      - name: Check output
-       env:
-         RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-       run: |
-         echo $RELEASE_VERSION
-         echo ${{ steps.vars.outputs.tag }}
-         echo ${{ steps.vars.outputs }}
+      - name: Extract RELEASE_VERSION
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
+          echo ${{ steps.vars.outputs }}
       - name: Here we build an image
         run: 
           echo "docker build . -t deep-lesion:$RELEASE_VERSION"
