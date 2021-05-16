@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-from fastapi import UploadFile
 from http import HTTPStatus
 from setup import app
 import unittest
@@ -20,7 +19,5 @@ class TestApplication(unittest.TestCase):
     def test_file_upload(self):
         test_file_name = os.getcwd() + '/tests/doge.png'
         with open(test_file_name, 'rb') as test_file:
-            test_upload_file = UploadFile(filename=test_file_name, content_type='image/png', file=test_file)
-            response = self.client.post('/uploadfile/', data={'file': test_upload_file})
-            assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY  # TODO fix this
-
+            response = self.client.post('/file/', data={'file': test_file})
+            assert response.status_code == HTTPStatus.OK
