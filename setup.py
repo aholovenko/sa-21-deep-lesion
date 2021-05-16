@@ -17,7 +17,7 @@ async def say_hello():
 async def main():
     content = """
         <body>
-        <form action="/uploadfile/" enctype="multipart/form-data" method="post">
+        <form action="/file/" enctype="multipart/form-data" method="post">
         <input name="file" type="file">
         <input type="submit">
         </form>
@@ -26,18 +26,17 @@ async def main():
     return HTMLResponse(content=content)
 
 
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(...)):
+@app.post("/file/")
+async def create_file(file: bytes = File(...)):
     try:
-        contents = await file.read()
         logging.info('Loading image...')
-        image = Image.open(io.BytesIO(contents))  # TODO create class for image types - jpg, png, etc? 
-        logging.info(f'Successfully uploaded image {file.filename}')
+        image = Image.open(io.BytesIO(file))  # TODO: create class for image types - jpg, png, etc? 
+        logging.info(f'Successfully uploaded image')
     except Exception as e:
-        msg = f'Error while uploading image'
+        msg = f'Error while uploading. Please, make sure that you are uploading an image.'
         logging.error(f'{msg}: {e}')
         return msg
-    return image
+    return f'Successfully upladed file of size {image.size} and format {image.format}'
 
 
 if __name__ == '__main__':
