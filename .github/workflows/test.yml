@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
     - name: Set up Python 3.9.2
       uses: actions/setup-python@v2
       with:
