@@ -2,25 +2,23 @@ name: build-and-push
 on:
   push:
     tags:
-      - '*.*.*'
+      - 'v*.*.*'
 jobs:
   build-and-push-image:
-    name: Build and push image
     runs-on: ubuntu-latest
     steps:
-      - name: Extract tag name
-        uses: actions/github-script@0.2.0
+      - uses: actions/checkout@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            return context.payload.ref.replace(/\/refs\/tags\//, '');
-      - name: Echo
-        run: |
-          export VERSION=${{ steps.tag.outputs.result }}
-          echo $VERSION
-      - name: Here we build an image
+          token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
+      - name: Extract tag name
+        id: vars
         run: 
-          echo "docker build . -t deep-lesion:$VERSION"
+          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Here we build an image
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: 
+          echo "docker build . -t deep-lesion:$RELEASE_VERSION"
       - name: Here we push an image
         run: 
           echo "push image to registry"
