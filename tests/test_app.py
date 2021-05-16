@@ -18,6 +18,5 @@ class TestApplication(unittest.TestCase):
 
     def test_file_upload(self):
         test_file_name = os.getcwd() + '/tests/test-ct-scan.jpg'
-        with open(test_file_name, 'rb') as test_file:
-            response = self.client.post('/file/', data={'file': test_file})
-            assert response.status_code == HTTPStatus.OK
+        response = self.client.post('/file/', data={'file': open(test_file_name, 'rb')})
+        assert response.status_code == HTTPStatus.OK
