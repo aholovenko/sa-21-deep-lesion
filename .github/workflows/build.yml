@@ -13,7 +13,8 @@ jobs:
           token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
       - name: Extract tag name
         id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        run: 
+          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
        - name: Check output
        env:
          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
