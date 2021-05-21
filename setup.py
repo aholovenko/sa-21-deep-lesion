@@ -8,6 +8,8 @@ import uvicorn
 import cv2
 import numpy as np
 
+logging.basicConfig(level=logging.INFO)
+
 app = FastAPI()
 
 
@@ -51,16 +53,16 @@ def plot_bbox_onto_image(img, bbox):
 async def create_file(file: bytes = File(...)):
     try:
         logging.info('Loading image...')
-        image = Image.open(io.BytesIO(file))  # TODO: create class for image types - jpg, png, etc?
+
+        # convert image from bytes to CV2
+        image_array = np.fromstring(file, np.uint8)
+        opencvImage = cv2.cvtColor(np.array(image_array), cv2.COLOR_RGB2BGR)
 
         logging.info(f'Successfully uploaded image')
     except Exception as e:
-        msg = f'Error while uploading. Please, make sure that you are uploading an image.'
+        msg = 'Error while uploading. Please, make sure that you are uploading an image.'
         logging.error(f'{msg}: {e}')
         return msg
-
-    # convert from PIL to CV2
-    opencvImage = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
     # make prediction
     bbox_resut = predict(opencvImage)
@@ -89,7 +91,6 @@ async def create_file(file: bytes = File(...)):
         """
 
     return HTMLResponse(content=content)
-    # return f'Successfully upladed file of size {image.size} and format {image.format}'
 
 
 if __name__ == '__main__':
