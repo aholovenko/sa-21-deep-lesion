@@ -2,3 +2,4 @@ fastapi[all]
 python-multipart
 pytest
 Pillow
+opencv-python-headless
