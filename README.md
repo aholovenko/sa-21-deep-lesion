@@ -3,6 +3,8 @@ UCU Software Architecture for Data Science in Python Course 2021
 
 ### FastAPI Server for Deep Lesion Detection
 
+#### Team: Illia Ovcharenko, Marian Petruk, Anastasia Holovenko
+
 Run server locally
 ```
  pyenv install 3.9.2 
