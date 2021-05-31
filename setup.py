@@ -29,7 +29,7 @@ async def create_file(request: Request, file: bytes = File(...)):
         logging.info('Loading image...')
 
         # convert image from bytes to CV2
-        image_array = np.fromstring(file, np.uint8)
+        image_array = np.frombuffer(file, np.uint8)
         opencvImage = cv2.cvtColor(np.array(image_array), cv2.COLOR_RGB2BGR)
 
         logging.info(f'Successfully uploaded image')
