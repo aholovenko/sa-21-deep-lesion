@@ -1,7 +1,7 @@
 # sa-21-deep-lesion
 UCU Software Architecture for Data Science in Python Course 2021
 
-### FastAPI Server for Deep Lesion Segmentation
+### FastAPI Server for Deep Lesion Detection/Segmentation
 
 #### Team: Illia Ovcharenko, Marian Petruk, Anastasia Holovenko
 
