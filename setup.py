@@ -41,7 +41,7 @@ async def create_file(request: Request, file: bytes = File(...)):
     try:
         output_image = predict(opencvImage)
     except Exception as e:
-        msg = 'Error while prediction...'
+        msg = 'Error during prediction...'
         logging.error(f'{msg}: {e}')
         raise e
 
