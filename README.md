@@ -11,7 +11,7 @@ manually adding bookmarks. What is more, they usually add it only for one lesion
 We, however, would like to optimize this process and provide anyone with an opportunity to upload their CT scan
 and use our model to detect/segment a lesion on one's scan.
 
-**Step 1**: Simply set up of a server </b>
+**Step 1**: Simply set up of a server
 
 Run server locally
 ```
