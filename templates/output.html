@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/main.css"/>
     <title>Deep Lesion Segmentation</title>
 </head>
 <body>
     <h3>Input:</h3>
-    <img style="width:400px;height:400px;" src="data:image/png;base64,{{ data.input_image }}" alt="Input CT scan">
+    <img src="data:image/png;base64,{{ data.input_image }}" alt="Input CT scan">
     <h3>Output:</h3>
-    <img style="width:400px;height:400px;" src="data:image/png;base64,{{ data.output_image }}" alt="Output CT scan">
+    <img src="data:image/png;base64,{{ data.output_image }}" alt="Output CT scan">
 </body>
 </html>

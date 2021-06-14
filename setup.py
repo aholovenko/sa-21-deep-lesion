@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, Request
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import cv2
 import logging
@@ -11,6 +12,8 @@ from logic import convert_to_base64, predict
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
