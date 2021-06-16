@@ -13,7 +13,7 @@ and use our model to detect/segment a lesion on one's scan.
 
 **Step 1**: Simply set up of a server
 
-Run server locally
+Option 1: Run server locally
 ```
  pyenv install 3.9.2 
  pyenv virtualenv 3.9.2 deep-lesion
@@ -22,11 +22,18 @@ Run server locally
  uvicorn setup:app --host 0.0.0.0 --port 80
 ```
 
-Run in docker container
+Option 2: Run in docker container
 ```
  docker build . -t deep-lesion:latest
  docker run -p 8080:8080 deep-lesion
 ```
+
+Option 3: Deploy app
+* Draft a new release using [workflow](https://github.com/aholovenko/sa-21-deep-lesion/releases/new)
+* Wait for successful build and Google Cloud Registry upload
+* Find your image in GCR with the tag used during the build
+* Configure to run on the cloud
+Current [url](https://deep-lesion-service-642qcpnmbq-ue.a.run.app)
 
 **Step 2**: Upload your CT scan image as a `*.png`, `*.jpeg` or `*.jpg` file
 
