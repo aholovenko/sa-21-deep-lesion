@@ -28,10 +28,11 @@ Option 2: Run in docker container
  docker run -p 8080:8080 deep-lesion
 ```
 
-Option 3: Upload docker image to GCR and deploy to run on cloud
-* Run a GitHub Action workflow `build-and-push`
-* Find your image in GCR with a tag used during the build
-* Configure to run on cloud
+Option 3: Deploy app
+* Draft a new release using [workflow](https://github.com/aholovenko/sa-21-deep-lesion/releases/new)
+* Wait for successful build and Google Cloud Registry upload
+* Find your image in GCR with the tag used during the build
+* Configure to run on the cloud
 Current [url](https://deep-lesion-service-642qcpnmbq-ue.a.run.app)
 
 **Step 2**: Upload your CT scan image as a `*.png`, `*.jpeg` or `*.jpg` file
