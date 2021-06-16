@@ -4,21 +4,18 @@ on:
     tags:
       - 'v*.*.*'
 jobs:
-  build-and-push-image:
+  build-and-push-image-to-gcr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Get the version
+        id: get_tag_name
+        run: echo ::set-output name=GIT_TAG_NAME::${GITHUB_REF/refs\/tags\//}
+      - uses: RafikFarhad/push-to-gcr-github-action@v3.0.2
         with:
-          token: ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }}
-      - name: Extract tag name
-        id: vars
-        run: 
-          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-      - name: Here we build an image
-        env:
-          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        run: 
-          docker build . -t deep-lesion:$RELEASE_VERSION
-      - name: Here we push an image
-        run: 
-          echo "push image to registry"
+          gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          registry: gcr.io
+          project_id: ${{ secrets.GCLOUD_PROJECT_NAME }}
+          image_name: deep-lesion-server
+          image_tag: ${{ steps.get_tag_name.outputs.GIT_TAG_NAME}}
+          dockerfile: ./Dockerfile

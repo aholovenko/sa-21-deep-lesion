@@ -25,7 +25,7 @@ Run server locally
 Run in docker container
 ```
  docker build . -t deep-lesion:latest
- docker run -p 80:80 deep-lesion
+ docker run -p 8080:8080 deep-lesion
 ```
 
 **Step 2**: Upload your CT scan image as a `*.png`, `*.jpeg` or `*.jpg` file
