@@ -13,7 +13,7 @@ and use our model to detect/segment a lesion on one's scan.
 
 **Step 1**: Simply set up of a server
 
-1.1 Run server locally
+Option 1: Run server locally
 ```
  pyenv install 3.9.2 
  pyenv virtualenv 3.9.2 deep-lesion
@@ -22,13 +22,13 @@ and use our model to detect/segment a lesion on one's scan.
  uvicorn setup:app --host 0.0.0.0 --port 80
 ```
 
-1.2 Run in docker container
+Option 2: Run in docker container
 ```
  docker build . -t deep-lesion:latest
  docker run -p 8080:8080 deep-lesion
 ```
 
-1.3 Upload docker image to GCR and deploy to run on cloud
+Option 3: Upload docker image to GCR and deploy to run on cloud
 * Run a GitHub Action workflow `build-and-push`
 * Find your image in GCR with a tag used during the build
 * Configure to run on cloud
