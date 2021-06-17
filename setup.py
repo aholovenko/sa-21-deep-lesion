@@ -6,8 +6,9 @@ import cv2
 import logging
 import uvicorn
 import numpy as np
-
+import io
 from logic import convert_to_base64, predict
+from PIL import Image
 
 logging.basicConfig(level=logging.INFO)
 
@@ -32,8 +33,8 @@ async def create_file(request: Request, file: bytes = File(...)):
         logging.info('Loading image...')
 
         # convert image from bytes to CV2
-        image_array = np.frombuffer(file, np.uint8)
-        opencvImage = cv2.cvtColor(np.array(image_array), cv2.COLOR_RGB2BGR)
+        image = Image.open(io.BytesIO(file))
+        opencvImage = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
         logging.info(f'Successfully uploaded image')
     except Exception as e:
