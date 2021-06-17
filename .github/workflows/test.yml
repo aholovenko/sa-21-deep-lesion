@@ -24,10 +24,10 @@ jobs:
         flake8 . --count --show-source --statistics --bug-report
     - name: Lint with pylint
       run: |
-        pylint --rcfile=setup.cfg *.py
+        pylint --rcfile=setup_linters.cfg *.py
     - name: Lint with bandit
       run: |
-        bandit -r --ini setup.cfg *.py
+        bandit -r --ini setup_linters.cfg *.py
   tests:
     runs-on: ubuntu-latest
     steps:
