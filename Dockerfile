@@ -41,4 +41,4 @@ LABEL version={VERSION}
 
 EXPOSE 8080
 
-CMD ["uvicorn", "setup:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["/venv/bin/python", "-m", "uvicorn", "setup:app", "--host", "0.0.0.0", "--port", "8080"]

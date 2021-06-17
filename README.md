@@ -15,8 +15,8 @@ and use our model to detect/segment a lesion on one's scan.
 
 Option 1: Run server locally
 ```
- pyenv install 3.9.2 
- pyenv virtualenv 3.9.2 deep-lesion
+ pyenv install 3.7.2 
+ pyenv virtualenv 3.7.2 deep-lesion
  source <path-to-env>/deep-lesion/bin/activate
  pip install -r requirements.txt
  uvicorn setup:app --host 0.0.0.0 --port 8080
