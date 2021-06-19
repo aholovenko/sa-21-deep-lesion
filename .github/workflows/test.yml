@@ -20,7 +20,7 @@ jobs:
     - name: Lint with flake8
       run: |
         echo "Run flake8 and display statistics"
-        flake8 . --count --show-source --statistics --max-line-length=120
+        flake8 . -v --count --show-source --max-line-length=120 --select=E,F,W,C --statistics
         echo "Get flake8 bug-report"
         flake8 . --bug-report
   tests:
