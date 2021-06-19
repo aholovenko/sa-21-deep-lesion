@@ -19,7 +19,10 @@ jobs:
         pip install flake8
     - name: Lint with flake8
       run: |
-        flake8 . --count --show-source --statistics
+        echo "Run flake8 and display statistics"
+        flake8 . --count --show-source --statistics --max-line-length=120
+        echo "Get flake8 bug-report"
+        flake8 . --bug-report
   tests:
     runs-on: ubuntu-latest
     steps:

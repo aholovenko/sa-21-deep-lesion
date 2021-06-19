@@ -36,7 +36,7 @@ async def create_file(request: Request, file: bytes = File(...)):
         image = Image.open(io.BytesIO(file))
         opencvImage = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
-        logging.info(f'Successfully uploaded image')
+        logging.info('Successfully uploaded image')
     except Exception as e:
         msg = 'Error while uploading. Please, make sure that you are uploading an image.'
         logging.error(f'{msg}: {e}')
