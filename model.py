@@ -1,23 +1,24 @@
+"""Module for DNN model operations"""
+import os
 import segmentation_models_pytorch as smp
 import torch
 import flash
-import os
 import gdown
 import cv2
-
 import matplotlib
-
-matplotlib.use("TkAgg")
-import matplotlib.pyplot as plt
-
 import numpy as np
+import matplotlib.pyplot as plt
+matplotlib.use("TkAgg")
+
+
+
 
 
 def download_weights():
     url = 'https://drive.google.com/uc?id=1LzlKsVgAxldv_cHDFtPBZeRcovqkul8W'
-    output = 'model.ckpt'
+    output_file = 'model.ckpt'
     output_path = 'static'
-    file_path = os.path.join(output_path, output)
+    file_path = os.path.join(output_path, output_file)
 
     if not os.path.exists(file_path):
         print('Downloading model weights...')
@@ -37,14 +38,14 @@ def preprocess_image(opencv_image):
 
 def postprocess_image(output_tensor, original_input_image):
     score_map = output_tensor.data
-    img = (original_input_image + 50)
-    img = np.stack([img] * 3, axis=2)
+    postprocessed_image = (original_input_image + 50)
+    postprocessed_image = np.stack([postprocessed_image] * 3, axis=2)
 
     score_map = score_map[0][0] + score_map[0][1] + score_map[0][2] + score_map[0][3]
 
-    img[:, :, 0] = np.add(img[:, :, 0], score_map)
+    postprocessed_image[:, :, 0] = np.add(postprocessed_image[:, :, 0], score_map)
 
-    return img
+    return postprocessed_image
 
 
 def initialize_neural_network():
@@ -69,9 +70,9 @@ def ct_read(input_img: np.array, minv=-500, maxv=600):
 if __name__ == "__main__":
     classifier = initialize_neural_network()
 
-    img_path = "data/000062_01_01/075.png"
+    IMG_PATH = "data/000062_01_01/075.png"
 
-    img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+    img = cv2.imread(IMG_PATH, cv2.IMREAD_UNCHANGED)
     img = ct_read(img)
 
     input_tensor = preprocess_image(img)

@@ -12,11 +12,11 @@ from model import preprocess_image, postprocess_image
 logging.basicConfig(level=logging.INFO)
 
 
-def predict(opencvImage, AI_model):
+def predict(opencv_image, ai_model):
     # make prediction
-    model_output = predict_model(opencvImage, AI_model)
+    model_output = predict_model(opencv_image, ai_model)
 
-    final_image = postprocess_image(model_output, opencvImage)
+    final_image = postprocess_image(model_output, opencv_image)
     return final_image
 
 
@@ -32,7 +32,6 @@ def predict_model(img, classifier):
 def matplotlib_viz(image):
     def fig2img(fig):
         """Convert a Matplotlib figure to a PIL Image and return it"""
-        import io
         buf = io.BytesIO()
         fig.savefig(buf)
         buf.seek(0)
@@ -40,10 +39,10 @@ def matplotlib_viz(image):
         return img
 
     def image_to_byte_array(image: Image):
-        imgByteArr = io.BytesIO()
-        image.save(imgByteArr, format=image.format)
-        imgByteArr = imgByteArr.getvalue()
-        return imgByteArr
+        img_byte_array = io.BytesIO()
+        image.save(img_byte_array, format=image.format)
+        img_byte_array = img_byte_array.getvalue()
+        return img_byte_array
 
     figure = matplotlib.pyplot.figure()
     plot = figure.add_subplot(111)
