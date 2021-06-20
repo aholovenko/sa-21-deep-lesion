@@ -36,7 +36,9 @@ COPY --from=builder-venv /venv /venv
 RUN true
 COPY . ./app
 WORKDIR /app
-RUN curl -L https://www.dropbox.com/sh/4dy5rgzr98tq0yd/model.ckpt?dl=0 > static/model.ckpt
+
+# download model weights during docker image build
+RUN curl -L https://www.dropbox.com/sh/4dy5rgzr98tq0yd/model.ckpt?dl=0 > /app/static/model.ckpt
 
 # Use the non-root user to run our application
 USER nonroot
