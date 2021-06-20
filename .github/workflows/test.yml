@@ -50,3 +50,5 @@ jobs:
       run: |
         export PYTHONPATH=$(pwd)
         pytest tests
+    - name: Test docker build
+      run: docker build . -t -t deep-lesion:test-build
