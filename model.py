@@ -55,15 +55,15 @@ def initialize_neural_network():
     return classifier
 
 
-def ct_read(input_img: np.array, minv=-500, maxv=600):
+def ct_read(input_img: np.array, min_v=-500, max_v=600):
     # TODO: ask DICOM window range (-500, 600) from user for each particular ct-scan
-    img = input_img.astype(np.float32) - 32768
-    img = np.clip((img - minv) / maxv, 0, 1) - 50
-    return img
+    ct_scan = input_img.astype(np.float32) - 32768
+    ct_scan = np.clip((ct_scan - min_v) / max_v, 0, 1) - 50
+    return ct_scan
 
 
 if __name__ == "__main__":
-    classifier = initialize_neural_network()
+    dnn = initialize_neural_network()
 
     IMG_PATH = "data/000062_01_01/075.png"
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     input_tensor = preprocess_image(img)
 
-    output = classifier(input_tensor)
+    output = dnn(input_tensor)
 
     result = postprocess_image(output, img)
 

@@ -32,12 +32,12 @@ async def home(request: Request):
 async def my_custom_exception_handler(request: Request, exc: StarletteHTTPException):
     if exc.status_code == 404:
         return templates.TemplateResponse('404.html', {'request': request})
-    else:
-        # Generic error page
-        return templates.TemplateResponse('home.html', {
-            'request': request,
-            'detail': exc.detail
-        })
+
+    # Generic error page
+    return templates.TemplateResponse('home.html', {
+        'request': request,
+        'detail': exc.detail
+    })
 
 
 @app.post("/file", response_class=HTMLResponse)
@@ -58,14 +58,14 @@ async def create_file(request: Request, file: bytes = File(...)):
         logging.info('Successfully uploaded CT-scan')
     except Exception as e:
         msg = 'Error while uploading. Please, make sure that you are uploading a CT-scan.'
-        logging.error(f'{msg}: {e}')
+        logging.error('%s: %s', msg, e)
         return msg
 
     try:
         output_image = predict(opencv_image, DNN_MODEL)
     except Exception as e:
         msg = 'Error during prediction...'
-        logging.error(f'{msg}: {e}')
+        logging.error('%s: %s', msg, e)
         return msg
 
     request_data = {
