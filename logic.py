@@ -1,48 +1,60 @@
 import base64
 import io
 import logging
-import cv2
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
 
 from PIL import Image
 
-logging.basicConfig(level=logging.DEBUG)
+from model import preprocess_image, postprocess_image
+
+logging.basicConfig(level=logging.INFO)
 
 
-def predict(opencvImage):
+def predict(opencvImage, AI_model):
     # make prediction
-    bbox_result = predict_bbox(opencvImage)
-    final_image = plot_bbox_onto_image(opencvImage, bbox_result)
+    model_output = predict_model(opencvImage, AI_model)
 
-    # convert CV2 to PIL
-    final_image = cv2.cvtColor(final_image, cv2.COLOR_BGR2RGB)
-    final_image = Image.fromarray(final_image)
-
-    # convert to file-like data
-    obj = io.BytesIO()  # file in memory to save image without using disk  #
-    final_image.save(obj, format='png')  # save in file (BytesIO)
-    obj.seek(0)
-
-    return obj.read()
+    final_image = postprocess_image(model_output, opencvImage)
+    return final_image
 
 
-def predict_bbox(img):
-    logging.debug("predict bbox")
-    # TODO: add real pytorch model prediction
-    return [10, 10, 100, 100]
+def predict_model(img, classifier):
+    logging.debug("predict lesions with DNN model")
+
+    input_tensor = preprocess_image(img)
+    output = classifier(input_tensor)
+
+    return output
 
 
-def plot_bbox_onto_image(img, bbox):
-    logging.debug("plot bbox")
-    x1, y1, x2, y2 = bbox
+def matplotlib_viz(image):
+    def fig2img(fig):
+        """Convert a Matplotlib figure to a PIL Image and return it"""
+        import io
+        buf = io.BytesIO()
+        fig.savefig(buf)
+        buf.seek(0)
+        img = Image.open(buf)
+        return img
 
-    # Red color in BGR
-    color = (0, 0, 255)
+    def image_to_byte_array(image: Image):
+        imgByteArr = io.BytesIO()
+        image.save(imgByteArr, format=image.format)
+        imgByteArr = imgByteArr.getvalue()
+        return imgByteArr
 
-    # Line thickness of 2 px
-    thickness = 2
+    figure = matplotlib.pyplot.figure()
+    plot = figure.add_subplot(111)
+    plot.imshow(image)
 
-    image_with_bbox = cv2.rectangle(img, (x1, y1), (x2, y2), color, thickness)
-    return image_with_bbox
+    matplotlib_plotted_image = image_to_byte_array(fig2img(figure))
+    return matplotlib_plotted_image
+
+
+def ct_scan_image_to_rgb(image):
+    return np.stack([image] * 3, axis=2) + 50
 
 
 def convert_to_base64(obj):

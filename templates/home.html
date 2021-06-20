@@ -1,21 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/main.css"/>
+    <title>HOME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type='image/x-icon' href='../static/favicon.ico' />
     <link rel="apple-touch-icon" sizes="180x180" href="../static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
     <link rel="manifest" href="../static/site.webmanifest">
-    <title>HOME</title>
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css"/>
 </head>
 <body>
     <h1>Hello {{ data.title }} !</h1>
-    #TODO here we can include explanations ...
+    <p>
+        Here you can use AI technologies to assist you in CT scan analysis.<br>
+        Please upload a CT-scan file for analysis.<br>
+        Or you may use the <mark><a href="../static/075.png" download>example</a></mark> CT-scan file.
+    </p>
     <form action="/file" enctype="multipart/form-data" method="post">
         <input name="file" type="file" accept="image/png,image/jpg,image/jpeg">
-        <input type="submit">
+        <button class="pushable" type="submit">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front">
+                Submit
+            </span>
+        </button>
     </form>
+
+    <script src="../static/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="../static/js/plugins.js"></script>
+    <script src="../static/js/main.js"></script>
 </body>
 </html>
