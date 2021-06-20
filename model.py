@@ -45,7 +45,7 @@ def postprocess_image(output_tensor, original_input_image):
 
 
 def initialize_neural_network():
-    download_weights()
+    # download_weights()
 
     model = smp.Unet('efficientnet-b2', in_channels=1, classes=4, activation=None)
     classifier = flash.Task(model)
