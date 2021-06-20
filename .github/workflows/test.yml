@@ -49,6 +49,19 @@ jobs:
     - name: Run PyTests
       run: |
         export PYTHONPATH=$(pwd)
-        pytest tests
+        pytest tests      
+  test-docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9.2
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9.2
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install wheel
+        pip install -r requirements.txt
     - name: Test docker build
-      run: docker build . -t -t deep-lesion:test-build
+      run: docker build . -t deep-lesion:test-build
