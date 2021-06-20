@@ -5,13 +5,8 @@ import torch
 import flash
 import gdown
 import cv2
-import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
-matplotlib.use("TkAgg")
-
-
-
 
 
 def download_weights():

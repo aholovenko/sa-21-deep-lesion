@@ -2,7 +2,6 @@ import base64
 import io
 import logging
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
 
 from PIL import Image
@@ -44,7 +43,7 @@ def matplotlib_viz(image):
         img_byte_array = img_byte_array.getvalue()
         return img_byte_array
 
-    figure = matplotlib.pyplot.figure()
+    figure = plt.figure()
     plot = figure.add_subplot(111)
     plot.imshow(image)
 
