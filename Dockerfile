@@ -1,12 +1,15 @@
 # Docker file ideas taken from https://martinheinz.dev/blog/17
 
-#FROM python:3.8-slim AS builder
-FROM debian:buster-slim AS builder
+FROM python:3.9-slim-buster AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends --yes python3-venv && \
     python3 -m venv /venv && \
     /venv/bin/pip install --upgrade pip && \
-    /venv/bin/pip install urllib3 pyasn1 wheel
+    /venv/bin/pip install wheel
+
+RUN apt-get install -y --no-install-recommends --yes make build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 # Adding some of the Dockerfile best practices https://github.com/hexops/dockerfile
 
@@ -27,7 +30,7 @@ FROM builder AS builder-venv
 COPY requirements.txt /requirements.txt
 RUN /venv/bin/pip install --no-cache-dir -r /requirements.txt
 
-FROM gcr.io/distroless/python3-debian10 AS runner
+FROM builder-venv AS runner
 
 COPY --from=builder-venv /venv /venv
 COPY . ./app
@@ -35,9 +38,6 @@ WORKDIR /app
 
 # Use the non-root user to run our application
 USER nonroot
-
-LABEL name={NAME}
-LABEL version={VERSION}
 
 EXPOSE 8080
 
