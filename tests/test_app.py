@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from http import HTTPStatus
 from setup import app
 import unittest
-import os
 
 
 class TestApplication(unittest.TestCase):

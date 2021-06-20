@@ -48,6 +48,7 @@ async def create_file(request: Request, file: bytes = File(...)):
         # use numpy to construct an array from bytes
         arr = np.frombuffer(file, dtype="uint8")
 
+        logging.info('Successfully uploaded image')
         # decode the array into an image
         opencvImage = cv2.imdecode(arr, cv2.IMREAD_UNCHANGED)
         opencvImage = ct_read(opencvImage)
