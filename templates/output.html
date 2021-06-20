@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/main.css"/>
+    <title>Deep Lesion Analysis result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type='image/x-icon' href='../static/favicon.ico' />
     <link rel="apple-touch-icon" sizes="180x180" href="../static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
     <link rel="manifest" href="../static/site.webmanifest">
-    <title>Deep Lesion Segmentation</title>
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css"/>
 </head>
 <body>
     <h3>Input:</h3>
-    <img src="data:image/png;base64,{{ data.input_image }}" alt="Input CT scan">
+    <img src="data:image/png;base64,{{ data.input_image }}" loading="lazy" alt="Input CT scan">
     <h3>Output:</h3>
-    <img src="data:image/png;base64,{{ data.output_image }}" alt="Output CT scan">
+    <img src="data:image/png;base64,{{ data.output_image }}" loading="lazy" alt="Output CT scan">
+
+    <script src="../static/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="../static/js/plugins.js"></script>
+    <script src="../static/js/main.js"></script>
 </body>
 </html>
