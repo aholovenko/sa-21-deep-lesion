@@ -33,6 +33,7 @@ RUN /venv/bin/pip install --no-cache-dir -r /requirements.txt
 FROM builder-venv AS runner
 
 COPY --from=builder-venv /venv /venv
+RUN true
 COPY . ./app
 WORKDIR /app
 
