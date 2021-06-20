@@ -25,8 +25,9 @@ def preprocess_image(opencv_image):
         opencv_image = cv2.resize(opencv_image, (512, 512))
 
     image = np.expand_dims(opencv_image, axis=-1)
-
+    # pylint: disable=E1101
     preprocessed_image_as_tensor = torch.from_numpy(np.transpose(image, (2, 0, 1)).astype('float32'))
+    # pylint: enable=E1101
     preprocessed_image_as_tensor = preprocessed_image_as_tensor.unsqueeze(0)
     return preprocessed_image_as_tensor
 
