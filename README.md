@@ -43,7 +43,8 @@ Option 3: Deploy the app
 * Wait for a successful build and Google Cloud Registry upload
 * Find your image in GCR with the tag used during the build
 * Configure to run on the cloud
-Current [url](https://deep-lesion-service-642qcpnmbq-ue.a.run.app)
+
+Current [url](https://deep-lesion-service-642qcpnmbq-uc.a.run.app)
 
 **Step 2**: Upload your CT scan image (from DeepLesion dataset) as a `*.png`, `*.jpeg` or `*.jpg` file
 
