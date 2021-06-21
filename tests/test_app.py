@@ -41,7 +41,6 @@ def test_model_prediction():
     metric = IoU(num_classes=2)
     iou_threshold = 0.4
 
-
     img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
     img = ct_read(img)
 
@@ -69,9 +68,7 @@ def test_model_prediction():
     # print(f"pred shape: {pred.shape}")
     # print(pred.dtype)
 
-
     score = metric(pred, mask)
     # print(f"score: {score}")
     assert score > iou_threshold, "Low IoU score"
-
 
