@@ -67,4 +67,4 @@ class TestApplication(unittest.TestCase):
 
         score = metric(pred, mask)
         # print(f"score: {score}")
-        assert score > iou_threshold, "Low IoU score"
+        self.assertGreater(score, iou_threshold, "Low IoU score")
