@@ -28,9 +28,6 @@ class TestApplication(unittest.TestCase):
         if response.content == b'"Error while uploading. Please, make sure that you are uploading an image."':
             raise HTTPError("HTTP response content error")
 
-
-
-
 def test_model_prediction():
     img_path = "data/000007_03_01/040.png"
     mask_path = "data/000007_03_01/040.npy"
@@ -52,7 +49,7 @@ def test_model_prediction():
     # print(mask.min(), mask.max())
 
     input_tensor = preprocess_image(img)
-    #print(f"input shape: {input_tensor.shape}")
+    # print(f"input shape: {input_tensor.shape}")
 
     pred = DNN_MODEL(input_tensor)
     pred = pred.data
@@ -71,4 +68,3 @@ def test_model_prediction():
     score = metric(pred, mask)
     # print(f"score: {score}")
     assert score > iou_threshold, "Low IoU score"
-
