@@ -29,43 +29,43 @@ class TestApplication(unittest.TestCase):
             raise HTTPError("HTTP response content error")
 
 
-def test_model_prediction():
-    img_path = "data/000007_03_01/040.png"
-    mask_path = "data/000007_03_01/040.npy"
+    def test_model_prediction(self):
+        img_path = "data/000007_03_01/040.png"
+        mask_path = "data/000007_03_01/040.npy"
 
-    # img_path = "data/000062_01_01/060.png"
-    # mask_path = "data/000062_01_01/060.npy"
+        # img_path = "data/000062_01_01/060.png"
+        # mask_path = "data/000062_01_01/060.npy"
 
-    metric = IoU(num_classes=2)
-    iou_threshold = 0.4
+        metric = IoU(num_classes=2)
+        iou_threshold = 0.4
 
-    img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
-    img = ct_read(img)
+        img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+        img = ct_read(img)
 
-    mask = np.load(mask_path)
-    mask = mask[:, :, 0]
-    mask = torch.tensor(mask).long()
-    # print(f"mask shape: {mask.shape}")
-    # print(f"mask unique: {np.unique(mask)}")
-    # print(mask.min(), mask.max())
+        mask = np.load(mask_path)
+        mask = mask[:, :, 0]
+        mask = torch.tensor(mask).long()
+        # print(f"mask shape: {mask.shape}")
+        # print(f"mask unique: {np.unique(mask)}")
+        # print(mask.min(), mask.max())
 
-    input_tensor = preprocess_image(img)
-    # print(f"input shape: {input_tensor.shape}")
+        input_tensor = preprocess_image(img)
+        # print(f"input shape: {input_tensor.shape}")
 
-    pred = DNN_MODEL(input_tensor)
-    pred = pred.data
-    pred = pred[0][0] + pred[0][1] + pred[0][2] + pred[0][3]
-    # print(pred.max(), pred.min())
+        pred = DNN_MODEL(input_tensor)
+        pred = pred.data
+        pred = pred[0][0] + pred[0][1] + pred[0][2] + pred[0][3]
+        # print(pred.max(), pred.min())
 
-    pred = pred.clip(0, 1)
+        pred = pred.clip(0, 1)
 
-    # TODO make fake prediction to check assert
-    # pred = torch.rand(512, 512)
+        # TODO make fake prediction to check assert
+        # pred = torch.rand(512, 512)
 
-    # print(pred.max(), pred.min())
-    # print(f"pred shape: {pred.shape}")
-    # print(pred.dtype)
+        # print(pred.max(), pred.min())
+        # print(f"pred shape: {pred.shape}")
+        # print(pred.dtype)
 
-    score = metric(pred, mask)
-    # print(f"score: {score}")
-    assert score > iou_threshold, "Low IoU score"
+        score = metric(pred, mask)
+        # print(f"score: {score}")
+        assert score > iou_threshold, "Low IoU score"
