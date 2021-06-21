@@ -28,7 +28,6 @@ class TestApplication(unittest.TestCase):
         if response.content == b'"Error while uploading. Please, make sure that you are uploading an image."':
             raise HTTPError("HTTP response content error")
 
-
     def test_model_prediction(self):
         img_path = "data/000007_03_01/040.png"
         mask_path = "data/000007_03_01/040.npy"
